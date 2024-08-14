@@ -1,0 +1,31 @@
+import {BasePage} from "./base-page";
+import {By} from 'selenium-webdriver';
+
+export class LoginPage extends BasePage {
+    private static loginUrl = '/login';
+    private usernameSelector = By.id('username')
+    private passwordSelector = By.id('password')
+    private loginButtonSelector = By.id('login')
+
+    async open(path: string = LoginPage.loginUrl): Promise<void> {
+        return await this.driver.get(path);
+    }
+
+    async setUsername(username: string) {
+        return await this.driver.findElement(this.usernameSelector).sendKeys(username)
+    }
+
+    async setPassword(password: string) {
+        return await this.driver.findElement(this.passwordSelector).sendKeys(password)
+    }
+
+    async clickLoginButton() {
+        return await this.driver.findElement(this.loginButtonSelector).click();
+    }
+
+    async submitLoginForm(username: string, password: string) {
+        await this.setUsername(username)
+        await this.setPassword(password)
+        await this.clickLoginButton()
+    }
+}
