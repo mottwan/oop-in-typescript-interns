@@ -7,6 +7,7 @@
     "test": "mocha -r ts-node/register src/tests/**/*.ts"
   },
   "author": "",
+  "type": "module",
   "license": "ISC",
   "dependencies": {
     "chai": "^5.1.1",
