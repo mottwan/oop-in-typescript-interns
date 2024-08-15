@@ -5,10 +5,10 @@ export class LoginPage extends BasePage {
     private static loginUrl = '/login';
     private usernameSelector = By.id('username')
     private passwordSelector = By.id('password')
-    private loginButtonSelector = By.id('login')
+    private loginButtonSelector = By.xpath('//button[@type="submit"]')
 
     async open(path: string = LoginPage.loginUrl): Promise<void> {
-        return await this.driver.get(path);
+        return await this.driver.get(this.baseUrl + path);
     }
 
     async setUsername(username: string) {
@@ -27,5 +27,9 @@ export class LoginPage extends BasePage {
         await this.setUsername(username)
         await this.setPassword(password)
         await this.clickLoginButton()
+    }
+
+    async getPageTitle(): Promise<string> {
+        return await this.driver.getTitle()
     }
 }
