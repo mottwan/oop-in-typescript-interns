@@ -21,9 +21,9 @@ describe('Login Page Tests', () => {
 
     it('should login with valid credentials', async () => {
         await loginPage.open();
-        await loginPage.setUsername('testusername')
-        await loginPage.setPassword('testpassword')
+        await loginPage.setUsername('tomsmith')
+        await loginPage.setPassword('SuperSecretPassword!')
         await loginPage.clickLoginButton();
-        expect(await dashboardPage.isWelcomeMessageDisplayed()).to.be.true;
+        expect(await dashboardPage.getPageTitle()).to.contain('The Internet');
     });
 })
