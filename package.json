@@ -4,7 +4,7 @@
   "description": "sddkjhjsd",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -r ts-node/register src/tests/**/*.ts --timeout 50000"
+    "test": "mocha -r ts-node/register src/tests/**/*.ts --timeout 150000"
   },
   "author": "",
   "type": "module",

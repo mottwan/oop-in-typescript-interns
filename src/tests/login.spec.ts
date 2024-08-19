@@ -3,19 +3,23 @@ import { Builder, WebDriver } from "selenium-webdriver";
 import { expect } from "chai";
 import { DashboardPage } from "../pages/dashboard-page";
 
+
+
 describe('Login Page Tests', () => {
     let browser: WebDriver;
     let loginPage: LoginPage;
     let dashboardPage: DashboardPage;
 
     before( async () => {
-        browser = await new Builder().forBrowser('chrome').build();
+        // browser = await new Builder().forBrowser('chrome').build();
+        browser = await new Builder().forBrowser('firefox').build();
         loginPage = new LoginPage(browser);
         dashboardPage = new DashboardPage(browser);
 
     });
 
     after(async () => {
+        // await browser.close();
         await browser.quit();
     });
 
@@ -27,3 +31,6 @@ describe('Login Page Tests', () => {
         expect(await dashboardPage.getPageTitle()).to.contain('The Internet');
     });
 })
+
+
+

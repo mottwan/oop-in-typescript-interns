@@ -10,6 +10,7 @@ export abstract class BasePage {
 
     abstract open(path: string): Promise<void>;
 
-    abstract getPageTitle(): Promise<void>;
+    abstract getPageTitle(): Promise<string>;
 
+    
 }
