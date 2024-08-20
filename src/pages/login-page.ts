@@ -6,6 +6,7 @@ export class LoginPage extends BasePage {
     private usernameSelector = By.id('username')
     private passwordSelector = By.id('password')
     private loginButtonSelector = By.xpath('//button[@type="submit"]')
+    private errorMessage =By.css('.flash.error')
 
     async open(path: string = LoginPage.loginUrl): Promise<void> {
         return await this.driver.get(this.baseUrl + path);
@@ -32,4 +33,9 @@ export class LoginPage extends BasePage {
     async getPageTitle(): Promise<string> {
         return await this.driver.getTitle()
     }
+
+    async getErrorMessage(): Promise<string> {
+         return this.driver.findElement(this.errorMessage).getText()
+    }
+
 }
