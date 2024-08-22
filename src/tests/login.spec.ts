@@ -1,29 +1,23 @@
 import { LoginPage } from "../pages/login-page";
-import { Builder, WebDriver } from "selenium-webdriver";
 import { expect } from "chai";
 import { DashboardPage } from "../pages/dashboard-page";
+import { BrowserFactory } from "../browser-factory";
+import { PageFactory } from "../page-factory";
 
 
 
 describe('Login Page Tests', () => {
-    let browser: WebDriver;
-    let loginPage: LoginPage;
-    let dashboardPage: DashboardPage;
-
-    before(async () => {
-        browser = await new Builder().forBrowser('chrome').build();
-        loginPage = new LoginPage(browser);
-        dashboardPage = new DashboardPage(browser);
-
-    });
+    BrowserFactory.createBrowser('firefox')
+    const loginPage = PageFactory.createPage(LoginPage);
+    const dashboardPage = PageFactory.createPage(DashboardPage);
 
     beforeEach(async () => {
         await loginPage.open();
-    })
+    });
 
     after(async () => {
         // await browser.close();
-        await browser.quit();
+        await loginPage.quit();
     });
 
     it('should login with valid credentials', async () => {
@@ -39,6 +33,6 @@ describe('Login Page Tests', () => {
         await loginPage.setPassword('invalidpass')
         await loginPage.clickLoginButton();
         expect(await loginPage.getErrorMessage()).to.contain('Your username is invalid!\n×')
-    })
+    });
 
-})
+});

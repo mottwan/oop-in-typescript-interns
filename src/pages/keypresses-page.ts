@@ -2,16 +2,12 @@ import { By, Key, } from "selenium-webdriver";
 import { BasePage } from "./base-page";
 
 export class KeyPressesPage extends BasePage{
-    private static keyPressUrl = '/key_presses'
+    protected url = '/key_presses'
     private locators = {
         inputField: By.css('#target'),
         textResult: By.css('#result')
     }
-
-    async open(path: string = KeyPressesPage.keyPressUrl) {
-        return await this.driver.get(this.baseUrl + path);
-    }
-
+    
     async getPageTitle(): Promise<string> {
         return await this.driver.getTitle()
     }

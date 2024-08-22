@@ -1,32 +1,28 @@
-import { Builder, WebDriver } from "selenium-webdriver"
+
 import { CheckBoxPage } from "../pages/checkbox-page"
-import { assert } from "chai"
+import { assert, expect } from "chai"
+import { BrowserFactory } from "../browser-factory"
+import { PageFactory } from "../page-factory"
 
 describe('Validate checkbox page', () => {
-    let browser: WebDriver
-    let checkBoxPage: CheckBoxPage
-
-    before(async () => {
-        browser = await new Builder().forBrowser('chrome').build()
-        checkBoxPage = new CheckBoxPage(browser)
-    })
+    BrowserFactory.createBrowser('firefox')
+    //const browser = BrowserFactory.createBrowser('chrome')
+    const checkBoxPage = PageFactory.createPage(CheckBoxPage);
 
     after(async () => {
-        await browser.quit();
+        await checkBoxPage.quit();
     });
 
     it('Validate second checkbox is selected by default', async () => {
         await checkBoxPage.open()
-        await checkBoxPage.validateCheckbox('second')
+        expect ((await checkBoxPage.validateCheckbox('second')).includes('checked'))
     });
 
     it('Validate first checkbox select action', async () => {
         await checkBoxPage.open()      
         assert (await checkBoxPage.getPageName('Checkboxes'))  
         await checkBoxPage.clickOnCheckbox('first')
-        await checkBoxPage.validateCheckbox('first')
-        await checkBoxPage.validateCheckbox('second')
+        expect ((await checkBoxPage.validateCheckbox('first')).includes('checked'))
     });
-
 
 })

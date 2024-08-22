@@ -1,28 +1,22 @@
-import {Builder,  WebDriver} from "selenium-webdriver"
 import { KeyPressesPage } from "../pages/keypresses-page";
 import { expect } from "chai";
+import { BrowserFactory } from "../browser-factory";
+import { PageFactory } from "../page-factory";
 
+describe("Verify key presses actions page", () => {
+  BrowserFactory.createBrowser("firefox");
+  //const browser = BrowserFactory.createBrowser('chrome')
+  const keyPressPage = PageFactory.createPage(KeyPressesPage);
 
-describe('Verify key presses actions page', () => {
-    let browser: WebDriver;
-    let keyPressPage: KeyPressesPage;
+  after(async () => {
+    await keyPressPage.quit();
+  });
 
-    before( async () => {
-        browser = await new Builder().forBrowser('chrome').build();
-        keyPressPage = new KeyPressesPage(browser);
-    });
-
-    after(async () => {
-        await browser.quit();
-
-    });
-
-    it('Check SHIFT key press', async () => {
-        await keyPressPage.open();
-        await keyPressPage.clickOnInputField()
-        await keyPressPage.keyPress("SHIFT")
-        const a =  keyPressPage.getKeyPress()
-        expect ((await a).includes('SHIFT')).to.be.true
-    })
-
-})
+  it("Check SHIFT key press", async () => {
+    await keyPressPage.open();
+    await keyPressPage.clickOnInputField();
+    await keyPressPage.keyPress("SHIFT");
+    const a = keyPressPage.getKeyPress();
+    expect((await a).includes("SHIFT")).to.be.true;
+  });
+});

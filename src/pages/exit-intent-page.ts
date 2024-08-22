@@ -2,15 +2,11 @@ import { By } from "selenium-webdriver";
 import { BasePage } from "./base-page";
 
 export class ExitIntentPage extends BasePage {
-    private static url = '/exit_intent'
+    protected url = '/exit_intent'
     private locators = {
         activeModalWindow: By.xpath("//*[@id='ouibounce-modal' and contains(@style, 'display: block')]"),
         inactiveModalWindow: By.xpath("//*[@id='ouibounce-modal' and contains(@style, 'display: none')]"),
         closeButton: By.css('.modal-footer p')
-    }
-
-    async open(path: string = ExitIntentPage.url): Promise<void> {
-        return await this.driver.get(this.baseUrl + path);
     }
 
     async getPageTitle(): Promise<string> {

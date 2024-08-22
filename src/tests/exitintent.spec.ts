@@ -1,31 +1,29 @@
-import { Builder, WebDriver } from "selenium-webdriver"
-import { ExitIntentPage } from "../pages/exit-intent-page"
+
 import {  expect,} from "chai";
+import { BrowserFactory } from "../browser-factory";
+import { PageFactory } from "../page-factory";
+import { ExitIntentPage } from "../pages/exit-intent-page";
 
 describe('Verify Exit Mouse Intent page', () => {
-    let browser: WebDriver
-    let exitintentpage: ExitIntentPage;
-
-    before(async () => {
-        browser = await new Builder().forBrowser('chrome').build()
-        exitintentpage = new ExitIntentPage(browser)  
-    })
+    BrowserFactory.createBrowser('firefox')
+    const exitIntentPage = PageFactory.createPage(ExitIntentPage)
 
     after(async () => {
-        await browser.quit();
+        await exitIntentPage.quit();
     })
 
     it('Modal window must open ', async () => {
-        await exitintentpage.open()       
-        await exitintentpage.mouseExitViewPort() 
-        expect((await (exitintentpage.getModalWindow('activeModalWindow'))).isDisplayed())
+        await exitIntentPage.open()       
+        await exitIntentPage.mouseExitViewPort() 
+        expect((await (exitIntentPage.getModalWindow('activeModalWindow'))).isDisplayed())
     })
 
     it('Modal window must close', async () => {
-        await exitintentpage.open()       
-        await exitintentpage.mouseExitViewPort()
-        await exitintentpage.closeModalWindow()
-        expect((await (exitintentpage.getModalWindow('inactiveModalWindow'))).isDisplayed())
+        await exitIntentPage.open()       
+        await exitIntentPage.mouseExitViewPort()
+        await exitIntentPage.sleep(1000)
+        await exitIntentPage.closeModalWindow()
+        expect((await (exitIntentPage.getModalWindow('inactiveModalWindow'))).isDisplayed())
     })
 
 

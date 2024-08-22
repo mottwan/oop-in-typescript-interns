@@ -2,16 +2,12 @@ import { By, } from "selenium-webdriver";
 import { BasePage } from "./base-page";
 
 export class UploadPage extends BasePage {
-    private static url = '/upload'
+    protected url = '/upload'
     private locators = {
         choseFile: By.css("#file-upload"),
         dragDrop: By.css("#drag-drop-upload"),
         uploadButon: By.css("#file-submit"),
         successMessage: By.css(".example")
-    }
-     
-    async open(path: string = UploadPage.url): Promise<void> {
-        return await this.driver.get(this.baseUrl + path);
     }
 
     async getPageTitle(): Promise<string> {
