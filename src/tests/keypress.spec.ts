@@ -4,12 +4,14 @@ import { BrowserFactory } from "../browser-factory";
 import { PageFactory } from "../page-factory";
 
 describe("Verify key presses actions page", () => {
-  BrowserFactory.createBrowser("firefox");
-  //const browser = BrowserFactory.createBrowser('chrome')
-  const keyPressPage = PageFactory.createPage(KeyPressesPage);
+  let keyPressPage: KeyPressesPage;
+  before(() => {
+    BrowserFactory.createBrowser("firefox");
+    keyPressPage = PageFactory.createPage(KeyPressesPage);
+  });
 
   after(async () => {
-    await keyPressPage.quit();
+    await keyPressPage.close();
   });
 
   it("Check SHIFT key press", async () => {

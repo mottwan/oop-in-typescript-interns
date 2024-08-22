@@ -4,12 +4,15 @@ import { PageFactory } from "../page-factory";
 import { UploadPage } from "../pages/upload-page";
 
 describe("Test Upload Page", () => {
-  BrowserFactory.createBrowser("firefox");
-  //const browser = BrowserFactory.createBrowser('chrome')
-  const uploadPage = PageFactory.createPage(UploadPage);
+  let uploadPage: UploadPage;
+
+  before(() => {
+    BrowserFactory.createBrowser("firefox");
+    uploadPage = PageFactory.createPage(UploadPage);
+  });
 
   after(async () => {
-    await uploadPage.quit();
+    await uploadPage.close();
   });
 
   it('Upload file with "Choose File" button', async () => {

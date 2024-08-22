@@ -4,12 +4,14 @@ import { BrowserFactory } from "../browser-factory";
 import { PageFactory } from "../page-factory";
 
 describe("Image validation page", () => {
-  BrowserFactory.createBrowser("firefox");
-  //const browser = BrowserFactory.createBrowser('chrome')
-  const imagePage = PageFactory.createPage(ImagePage);
+  let imagePage: ImagePage;
+  before(() => {
+    BrowserFactory.createBrowser("firefox");
+    imagePage = PageFactory.createPage(ImagePage);
+  });
 
   after(async () => {
-    await imagePage.quit();
+    await imagePage.close();
   });
 
   it("All images must be valid", async () => {

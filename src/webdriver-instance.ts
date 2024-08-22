@@ -14,9 +14,9 @@ export class WebDriverInstance {
     return this.driver;
   }
   
-  public static async quit(): Promise<void> {
-    if (this.driver) {
-      await this.driver.quit();
-    }
-  }
+  // public static async quit(): Promise<void> {
+  //   if (this.driver) {
+  //     await this.driver.quit();
+  //   }
+  // }
 }

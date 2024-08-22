@@ -4,12 +4,15 @@ import { expect } from "chai";
 import { BrowserFactory } from "../browser-factory";
 
 describe("Validate New Page", () => {
-  //BrowserFactory.createBrowser("firefox");
-  const browser = BrowserFactory.createBrowser('firefox')
-  const newPage = PageFactory.createPage(NewPage);
+  let newPage: NewPage;
+
+  before(() => {
+    BrowserFactory.createBrowser("firefox");
+    newPage = PageFactory.createPage(NewPage);
+  });
 
   after(async () => {
-    await browser.quit();
+    await newPage.close();
   });
 
   it("Validate something", async () => {

@@ -15,8 +15,8 @@ export abstract class BasePage {
     await this.driver.get(`${this.baseUrl}${this.url}`);
   }
 
-  async quit(): Promise<void> {
-    await this.driver.quit();
+  async close(): Promise<void> {
+    await this.driver.close();
   }
 
   abstract getPageTitle(): Promise<string>;
