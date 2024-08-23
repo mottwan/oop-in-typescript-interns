@@ -2,14 +2,14 @@ import {BasePage} from "./base-page";
 import {By} from 'selenium-webdriver';
 
 export class LoginPage extends BasePage {
-    private static loginUrl = '/login';
+    loginUrl = '/login';
     private usernameSelector = By.id('username')
     private passwordSelector = By.id('password')
     private loginButtonSelector = By.xpath('//button[@type="submit"]')
 
-    async open(path: string = LoginPage.loginUrl): Promise<void> {
-        return await this.driver.get(this.baseUrl + path);
-    }
+    // async open(path: string = LoginPage.loginUrl): Promise<void> {
+    //     return await this.driver.get(this.baseUrl + path);
+    // }
 
     async setUsername(username: string) {
         return await this.driver.findElement(this.usernameSelector).sendKeys(username)

@@ -1,21 +1,25 @@
+import { BrowserFactory } from "../factories/browser-factory";
+import { PageFactory } from "../factories/page-factory";
+// import { WebdriverInstance } from "../factories/webdriver-instance";
 import { JQueryUIPage } from "../pages/JQueryUI-page"; 
-import {Builder, WebDriver} from "selenium-webdriver"
 
-describe.only('JQuery menu test', () => {
-    let browser: WebDriver;
+
+describe('JQuery menu test', () => {
+
     let jQueryUIPage: JQueryUIPage;
 
     before( async () => {
-        browser = await new Builder().forBrowser('chrome', '127.0.6533.119').build();
-        jQueryUIPage= new JQueryUIPage(browser);
+        await BrowserFactory.initializeBrowser();
+        jQueryUIPage = PageFactory.createPage(JQueryUIPage);
     });
 
     after(async () => {
-        await browser.quit();
+        // await jQueryUIPage.closeBrowser();
+        // await WebdriverInstance.closeDriver();
     });
 
     it('should perform back to jquery UI', async () => {
-        await jQueryUIPage.open();
+        await jQueryUIPage.open(jQueryUIPage.jQueryUIPageUrl);
         await jQueryUIPage.clickOnBackButton();
         await new Promise(resolve => setTimeout(resolve, 3000));
     });

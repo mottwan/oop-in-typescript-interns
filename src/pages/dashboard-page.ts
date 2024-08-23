@@ -2,12 +2,8 @@ import {BasePage} from "./base-page";
 import {By} from "selenium-webdriver";
 
 export class DashboardPage extends BasePage {
-    private static dashboardPageURL: string = '/secure';
+    // dashboardPageURL: string = '/secure';
     private welcomeMessageSelector: By = By.id('welcomeMessage');
-
-    async open(path: string = DashboardPage.dashboardPageURL) {
-        return await this.driver.get(this.baseUrl + path);
-    }
 
 
     async isWelcomeMessageDisplayed() {

@@ -1,24 +1,27 @@
 import { AddRemoveElementsPage } from "../pages/add-remove-elements";
-import { Builder, WebDriver } from "selenium-webdriver";
 import { expect } from "chai";
+import { BrowserFactory } from "../factories/browser-factory";
+import { PageFactory } from "../factories/page-factory";
+// import { WebdriverInstance } from "../factories/webdriver-instance";
 
 describe('Add Element Test', () => {
-    let browser: WebDriver;
+    
     let addRemoveElements: AddRemoveElementsPage;
 
     before( async () => {
-        // browser = await new Builder().forBrowser('chrome').build();
-        browser = await new Builder().forBrowser('firefox').build();
-        addRemoveElements = new AddRemoveElementsPage(browser);
+        
+        await BrowserFactory.initializeBrowser();
+        addRemoveElements = PageFactory.createPage(AddRemoveElementsPage);
+        
     });
 
     after(async () => {
-        // await browser.close();
-        await browser.quit();
+        // await addRemoveElements.closeBrowser();
+        // await WebdriverInstance.closeDriver();
     });
 
     it('should add two button', async () => {
-        await addRemoveElements.open();
+        await addRemoveElements.open(addRemoveElements.addRemoveElementsPageURL);
         await addRemoveElements.addElement();
         await addRemoveElements.addElement();
         expect(await (addRemoveElements.findDeleteButtons())).to.equal(2);

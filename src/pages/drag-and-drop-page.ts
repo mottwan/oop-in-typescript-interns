@@ -7,13 +7,10 @@ const { By } = webdriver;
 
 
 export class DragAndDropPage extends BasePage {
-    private static dragAndDropPage: string = '/drag_and_drop';
+    dragAndDropPageUrl: string = '/drag_and_drop';
     private columnASelector = By.id('column-a');
     private columnBSelector = By.id('column-b');
     
-    async open(path: string = DragAndDropPage.dragAndDropPage) {
-        return await this.driver.get(this.baseUrl + path);
-    }
 
     async getPageTitle(): Promise<string> {
         return await this.driver.getTitle();

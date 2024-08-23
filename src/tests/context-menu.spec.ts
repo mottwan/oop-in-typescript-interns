@@ -1,31 +1,34 @@
 import { expect } from "chai";
 import { ContextMenuPage } from "../pages/context-menu-page";
-import { Builder, WebDriver } from "selenium-webdriver";
+import { PageFactory } from "../factories/page-factory";
+import { BrowserFactory } from "../factories/browser-factory";
+// import { WebdriverInstance } from "../factories/webdriver-instance";
 
 describe('Get context message', () => {
-    let browser: WebDriver;
+    
+
     let contextMenuPage: ContextMenuPage;
-
-    before( async () => {
-
-        browser = await new Builder().forBrowser('firefox').build();
-        contextMenuPage = new ContextMenuPage(browser);
-
+    
+    before(async () => {
+        await BrowserFactory.initializeBrowser();
+        contextMenuPage = PageFactory.createPage(ContextMenuPage);
+    
     });
-
+    
     after(async () => {
 
         await contextMenuPage.clickOkOnContextMenu();
-        await browser.quit();
+        // await contextMenuPage.closeBrowser();
+        // await WebdriverInstance.closeDriver();
 
     });
 
     it('should display context message', async () => {
         
-        await contextMenuPage.open();
-        await contextMenuPage.rightClick();
-        // console.log(await contextMenuPage.compareMessageFromContextMenu());
-        expect(await contextMenuPage.compareMessageFromContextMenu()).to.equal(true);
+        await (await contextMenuPage
+        .open(contextMenuPage.pageUrl))
+        .rightClick(contextMenuPage.hotSpotSelector)
+        expect(await contextMenuPage.compareMessageFromContextMenu()).to.be.true;
         
     });
 })
