@@ -1,7 +1,8 @@
 import { NewPage } from "../pages/new-page";
-import { PageFactory } from "../page-factory";
+import { PageFactory } from "../../page-factory";
 import { expect } from "chai";
-import { BrowserFactory } from "../browser-factory";
+import { BrowserFactory } from "../../browser-factory";
+//import { WebDriverInstance } from "../../webdriver-instance";
 
 describe("Validate New Page", () => {
   let newPage: NewPage;
@@ -12,11 +13,11 @@ describe("Validate New Page", () => {
   });
 
   after(async () => {
-    await newPage.close();
+    //WebDriverInstance.close();
   });
 
   it("Validate something", async () => {
-    await newPage.open();
+    await newPage.open("theInternet");
     expect(await newPage.getPageName("Geolocation")).to.be.true;
   });
 });

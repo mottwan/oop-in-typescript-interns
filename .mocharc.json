@@ -11,4 +11,6 @@
   "timeout": 2000,
   "watch-files": ["test/**/*.ts"],
   "ui": "bdd"
+  
+
 }

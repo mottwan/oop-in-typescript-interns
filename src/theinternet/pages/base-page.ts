@@ -1,9 +1,13 @@
 import { By, WebDriver } from "selenium-webdriver";
-import { WebDriverInstance } from "../webdriver-instance";
+import { WebDriverInstance } from "../../webdriver-instance";
+import { MenuLocators } from "../../orangehrmlive/tests/enums/menu-enum";
 
 export abstract class BasePage {
   protected driver: WebDriver;
-  protected baseUrl: string = "http://the-internet.herokuapp.com";
+  protected baseUrl = {
+    theInternet: "http://the-internet.herokuapp.com",
+    orangehrmlive: "https://opensource-demo.orangehrmlive.com"
+  };
   protected pageNameLocator = By.css("h3");
   protected abstract url: string;
 
@@ -11,8 +15,8 @@ export abstract class BasePage {
     this.driver = WebDriverInstance.getDriver();
   }
 
-  async open(): Promise<void> {
-    await this.driver.get(`${this.baseUrl}${this.url}`);
+  async open(baseUrl: keyof typeof this.baseUrl): Promise<void> {
+    await this.driver.get(`${this.baseUrl[baseUrl]}${this.url}`);
   }
 
   async close(): Promise<void> {
@@ -29,6 +33,11 @@ export abstract class BasePage {
     const pageName = await this.driver.findElement(this.pageNameLocator);
     const a = await pageName.getText();
     return title === a;
+  }
+
+  async clickOnSidePanelMenu(key: keyof typeof MenuLocators){
+    const selector = MenuLocators[key]
+    await (this.driver.findElement(By.xpath(selector)).click())
   }
 
 }

@@ -1,7 +1,8 @@
 import { expect } from "chai";
-import { BrowserFactory } from "../browser-factory";
-import { PageFactory } from "../page-factory";
+import { BrowserFactory } from "../../browser-factory";
+import { PageFactory } from "../../page-factory";
 import { ExitIntentPage } from "../pages/exit-intent-page";
+//import { WebDriverInstance } from "../../webdriver-instance";
 
 describe("Verify Exit Mouse Intent page", () => {
   let exitIntentPage: ExitIntentPage;
@@ -12,11 +13,11 @@ describe("Verify Exit Mouse Intent page", () => {
   });
 
   after(async () => {
-    await exitIntentPage.close();
+    //WebDriverInstance.close();
   });
 
   it("Modal window must open ", async () => {
-    await exitIntentPage.open();
+    await exitIntentPage.open("theInternet");
     await exitIntentPage.mouseExitViewPort();
     expect(
       (await exitIntentPage.getModalWindow("activeModalWindow")).isDisplayed()
@@ -24,7 +25,7 @@ describe("Verify Exit Mouse Intent page", () => {
   });
 
   it("Modal window must close", async () => {
-    await exitIntentPage.open();
+    await exitIntentPage.open("theInternet");
     await exitIntentPage.mouseExitViewPort();
     await exitIntentPage.sleep(1000);
     await exitIntentPage.closeModalWindow();

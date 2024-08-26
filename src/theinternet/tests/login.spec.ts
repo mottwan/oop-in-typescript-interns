@@ -1,8 +1,9 @@
 import { LoginPage } from "../pages/login-page";
 import { expect } from "chai";
 import { DashboardPage } from "../pages/dashboard-page";
-import { BrowserFactory } from "../browser-factory";
-import { PageFactory } from "../page-factory";
+import { BrowserFactory } from "../../browser-factory";
+import { PageFactory } from "../../page-factory";
+//import { WebDriverInstance } from "../../webdriver-instance";
 
 describe("Login Page Tests", () => {
   let loginPage: LoginPage;
@@ -15,11 +16,11 @@ describe("Login Page Tests", () => {
   });
 
   beforeEach(async () => {
-    await loginPage.open();
+    await loginPage.open("theInternet");
   });
 
   after(async () => {
-    await loginPage.close();
+    //WebDriverInstance.close();
   });
 
   it("should login with valid credentials", async () => {

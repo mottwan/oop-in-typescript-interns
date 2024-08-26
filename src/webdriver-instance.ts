@@ -1,22 +1,33 @@
 import { WebDriver } from "selenium-webdriver";
 
 export class WebDriverInstance {
-  private static driver: WebDriver;
+  private static driver: WebDriver | null = null;
+
+  private constructor() {}
 
   public static init(driver: WebDriver): void {
-    this.driver = driver;
+    if (this.driver === null) {
+      console.warn(this.driver);
+      this.driver = driver;
+    }
   }
 
   public static getDriver(): WebDriver {
-    if (!this.driver) {
-      throw new Error("WebDriver instance is not initialized.");
+    if (this.driver === null) {
+      throw new Error("instance is not initialized");
     }
     return this.driver;
   }
-  
-  // public static async quit(): Promise<void> {
-  //   if (this.driver) {
-  //     await this.driver.quit();
+
+  public static isDriverInitialize(): boolean {
+   return this.driver === null
+  }
+
+  // public static async close(): Promise<void> {
+  //   if (this.driver !== null) {
+  //     await this.driver.close();
+  //     this.driver = null;
   //   }
   // }
 }
+

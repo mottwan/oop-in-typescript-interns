@@ -1,7 +1,8 @@
 import { KeyPressesPage } from "../pages/keypresses-page";
 import { expect } from "chai";
-import { BrowserFactory } from "../browser-factory";
-import { PageFactory } from "../page-factory";
+import { BrowserFactory } from "../../browser-factory";
+import { PageFactory } from "../../page-factory";
+//import { WebDriverInstance } from "../../webdriver-instance";
 
 describe("Verify key presses actions page", () => {
   let keyPressPage: KeyPressesPage;
@@ -11,11 +12,11 @@ describe("Verify key presses actions page", () => {
   });
 
   after(async () => {
-    await keyPressPage.close();
+   // WebDriverInstance.close();
   });
 
   it("Check SHIFT key press", async () => {
-    await keyPressPage.open();
+    await keyPressPage.open("theInternet");
     await keyPressPage.clickOnInputField();
     await keyPressPage.keyPress("SHIFT");
     const a = keyPressPage.getKeyPress();
